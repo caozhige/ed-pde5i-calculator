@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Research-use calculator for 8-week tadalafil response in men with erectile dysfunction. Inputs are processed in your browser.">
+  <meta name="theme-color" content="#174f4a">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; form-action 'none'; base-uri 'none'">
+  <title>ED–PDE5i Response Calculator</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=1.2.0">
+  <script defer src="model-data.js"></script>
+  <script defer src="calculator.js"></script>
+  <script defer src="app.js?v=1.2.0"></script>
+</head>
+<body>
+  <header class="topbar"><div class="wrap header-inner">
+    <a class="wordmark" href="#main"><span class="brand-icon" aria-hidden="true">+</span> ED / PDE5i</a>
+    <div class="header-right"><span class="research-tag" data-i18n="research">Research use</span><button id="language" class="language-button" type="button" aria-label="切换到中文">中文</button></div>
+  </div></header>
+  <main id="main" class="wrap">
+    <div class="intro">
+      <p class="eyebrow" data-i18n="eyebrow">STUDY COMPANION · WEB CALCULATOR</p>
+      <h1 data-i18n="title">Tadalafil response calculator</h1>
+      <p class="lead" data-i18n="lead">Estimate the probability of patient-reported improvement after 8 weeks under the study's tadalafil regimen.</p>
+      <p class="regimen" data-i18n="regimen">Study regimen: tadalafil 10 mg every other day for 8 weeks · Outcome: GAQ response</p>
+    </div>
+    <div class="layout">
+      <section class="input-area" aria-labelledby="input-heading">
+        <div class="section-heading"><div><h2 id="input-heading" data-i18n="inputs">Pretreatment information</h2><p data-i18n="inputHint">Use the units shown. Derived indices are calculated automatically.</p></div></div>
+        <div class="toolbar"><button id="example" type="button" class="secondary" data-i18n="example">Load example</button><button id="reset" type="button" class="text-button" data-i18n="reset">Clear all</button><button id="expand-all" type="button" class="text-button" aria-expanded="false" data-i18n="expandAll">Expand all</button></div>
+        <div id="example-note" class="example-note" hidden data-i18n="exampleNote">Invented example for demonstration; not a study participant.</div>
+        <form id="calculator-form" novalidate autocomplete="off">
+          <section class="form-progress" aria-labelledby="progress-heading"><div class="progress-heading"><span id="progress-heading" data-i18n="requiredProgress">Required information</span><span id="progress" class="progress"></span></div><div id="completion-meter" class="completion-track" role="progressbar" aria-valuemin="0" aria-valuemax="33" aria-valuenow="0" aria-labelledby="progress-heading"><div id="completion-fill"></div></div></section>
+          <p class="input-count-note" data-i18n="inputCountNote">33 required source entries form 32 model predictors; five indices are calculated automatically.</p>
+          <section class="derived-card" aria-labelledby="derived-heading"><div class="derived-heading"><h3 id="derived-heading" data-i18n="derivedTitle">Calculated indices</h3><span class="readonly-label" data-i18n="readOnly">Read only</span></div><p data-i18n="derivedHint">Updated automatically from your measurements. No separate entry is needed.</p><div id="derived-values"></div></section>
+          <div id="fields"></div>
+          <div id="form-error" role="alert" class="error-box" hidden></div>
+          <div class="form-bottom"><button id="calculate" class="primary" type="submit" data-i18n="calculate">Calculate probability <span aria-hidden="true">→</span></button><span data-i18n="requiredHint">Complete all required fields. Missing values are not filled automatically.</span></div>
+        </form>
+      </section>
+      <aside class="sidebar" aria-labelledby="result-heading">
+        <section class="result-card">
+          <div class="result-top"><span class="eyebrow" data-i18n="prediction">PREDICTION</span></div>
+          <h2 id="result-heading" data-i18n="resultTitle">8-week GAQ response</h2>
+          <div id="result-live" data-state="pending" aria-live="polite" aria-atomic="true"><div class="probability"><span id="probability">Not calculated</span><span id="percent" hidden>%</span></div><p id="result-description" data-i18n="emptyResult">Complete the form and calculate to see the estimated probability.</p></div>
+          <div class="probability-visual" aria-hidden="true"><div class="probability-track"><div id="probability-fill"></div><span id="probability-marker" hidden></span></div><div class="scale"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div></div>
+          <p class="setting-label" data-i18n="researchSetting">Research setting only</p>
+          <button id="calculate-result" class="primary result-calculate" type="submit" form="calculator-form" data-i18n="calculate">Calculate probability →</button>
+          <div id="range-note" class="range-note" hidden></div>
+          <p class="result-note" data-i18n="resultNote">This estimate applies to the study setting. It does not measure an individual treatment effect or provide a prescribing recommendation.</p>
+        </section>
+        <details class="about-card"><summary data-i18n="about">About this model</summary>
+          <dl><div><dt data-i18n="cohortLabel">Development cohort</dt><dd data-i18n="cohort">623 men · single center</dd></div><div><dt data-i18n="modelLabel">Model</dt><dd data-i18n="model">Elastic net logistic regression</dd></div><div><dt data-i18n="validationLabel">Validation</dt><dd data-i18n="validation">Internal validation only</dd></div></dl>
+          <details><summary data-i18n="studyDetails">Study details & calculation</summary><p data-i18n="population">Developed in PDE5i-naive men with ED who completed 8 weeks of tadalafil 10 mg every other day and had an available outcome. Response means patient-perceived improvement on the Global Assessment Question (GAQ).</p><p data-i18n="method">The study assessed 41 baseline variables. This calculator automatically derives 6 indices from raw measurements and supplies the 32 required predictors to the locked primary model. Extra lipid measurements are optional and do not enter this model.</p><p data-i18n="precision">Derived values follow the study precision: BMI, 1 decimal; NLR, LMR and PLR, 2 decimals; MHR, 3 decimals. Internal validation used outer stratified 5-fold cross-validation repeated 5 times, with inner 5-fold tuning.</p><p data-i18n="boundary">Independent external validation is required before clinical deployment. The model has not been validated for other treatment regimens.</p></details>
+          <div class="privacy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10V7a6 6 0 0 1 12 0v3M5 10h14v11H5z"/></svg><span data-i18n="privacy">Calculations stay in your browser. This calculator does not upload or save your entries.</span></div>
+        </details>
+      </aside>
+    </div>
+    <footer><span data-i18n="footer">Research calculator accompanying the ED–PDE5i prediction study.</span><span>Model v1.0.0 · Calculator v1.2.0</span></footer>
+  </main>
+</body>
+</html>
